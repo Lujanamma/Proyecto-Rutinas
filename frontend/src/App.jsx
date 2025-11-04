@@ -1,23 +1,21 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Habits from './pages/Habits.jsx';
 
 function App() {
-  return (
-    <>
-      <nav>
-        <Link to="/login">Login</Link> | <Link to="/register">Registro</Link>
-      </nav>
+  const token = localStorage.getItem('token'); // JWT guardado en login
 
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/"
-          element={<h1>Bienvenido a tu app de seguimiento de hábitos</h1>}
-        />
-      </Routes>
-    </>
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/habits"
+        element={token ? <Habits /> : <Navigate to="/login" />}
+      />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </Routes>
   );
 }
 

@@ -6,15 +6,19 @@ import {
   getHabitController,
   updateHabitController,
   deleteHabitController,
+  completeHabitController,
 } from '../controllers/habitController.js';
 
 const router = express.Router();
 
 // CRUD de hábitos
-router.post('/', authenticate, createHabitController);
-router.get('/', authenticate, getHabitsController);
-router.get('/:id', authenticate, getHabitController);
-router.put('/:id', authenticate, updateHabitController);
-router.delete('/:id', authenticate, deleteHabitController);
+router.post('/', authenticate, createHabitController);        // Crear hábito
+router.get('/', authenticate, getHabitsController);           // Listar todos
+router.get('/:id', authenticate, getHabitController);         // Obtener por ID
+router.put('/:id', authenticate, updateHabitController);      // Actualizar
+router.delete('/:id', authenticate, deleteHabitController);   // Eliminar
+
+// Marcar hábito como completado
+router.post('/complete/:id', authenticate, completeHabitController);
 
 export default router;
