@@ -1,20 +1,44 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login.jsx';
-import Register from './pages/Register.jsx';
-import Habits from './pages/Habits.jsx';
+import { useState, useEffect } from 'react';
+
+import Login from '../src/Login.jsx';
+import Register from '../src/Register.jsx';
+import Habits from '../src/Habits.jsx';
 
 function App() {
-  const token = localStorage.getItem('token'); // JWT guardado en login
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
+
+  // Vigila cambios en localStorage por logout/login en otras pestañas
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem('token'));
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  const ProtectedRoute = ({ children }) => {
+    if (!token) {
+      return <Navigate to="/login" replace />;
+    }
+    return children;
+  };
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/" element={<Navigate to={token ? "/habits" : "/login"} replace />} />
+      <Route path="/login" element={<Login setToken={setToken} />} />
+      <Route path="/register" element={<Register setToken={setToken} />} />
       <Route
         path="/habits"
-        element={token ? <Habits /> : <Navigate to="/login" />}
+        element={
+          <ProtectedRoute>
+            <Habits token={token} />
+          </ProtectedRoute>
+        }
       />
-      <Route path="*" element={<Navigate to="/login" />} />
+      {/* Ruta comodín para 404 */}
+      <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
     </Routes>
   );
 }
