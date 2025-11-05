@@ -1,0 +1,267 @@
+/* ================================
+   🌙 ESTILO GENERAL CON MODO OSCURO
+   ================================ */
+
+:root {
+  --bg: #ffffffcc;
+  --text: #333;
+  --card: #f9f9f9;
+  --border: #ccc;
+  --primary: #1976d2;
+  --primary-hover: #125ea8;
+  --danger: #ff5252;
+  --danger-hover: #e53935;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Temas forzados manualmente */
+html[data-theme="dark"] {
+  --bg: #1e1e1e;
+  --text: #f1f1f1;
+  --card: #2a2a2a;
+  --border: #444;
+  --primary: #64b5f6;
+  --primary-hover: #42a5f5;
+  --danger: #ef5350;
+  --danger-hover: #e53935;
+  --shadow: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="light"] {
+  --bg: #f3f4f6; /* Un gris muy suave, da sensación de fondo claro */
+  --text: #333;
+  --card: #ffffff; /* Recuadro blanco limpio */
+  --border: #d0d0d0;
+  --primary: #1976d2;
+  --primary-hover: #125ea8;
+  --danger: #ff5252;
+  --danger-hover: #e53935;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+/* Detecta si el sistema está en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1e1e1e;
+    --text: #f1f1f1;
+    --card: #2a2a2a;
+    --border: #444;
+    --primary: #64b5f6;
+    --primary-hover: #42a5f5;
+    --danger: #ef5350;
+    --danger-hover: #e53935;
+    --shadow: rgba(255, 255, 255, 0.05);
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background-color 0.6s ease, color 0.6s ease;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+
+.habits-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px var(--shadow);
+   transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+/* HEADER MODERNO */
+.habits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease;
+}
+
+.habits-header h1 {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.habits-header button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.habits-header button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ================================
+   🔘 BOTONES Y FORMULARIOS
+   ================================ */
+
+.logout-btn {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: var(--danger-hover);
+}
+
+.habit-form {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.habit-form input,
+.habit-form select {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  flex: 1;
+  min-width: 140px;
+}
+
+.add-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.add-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* ================================
+   📜 LISTA DE HÁBITOS
+   ================================ */
+
+.habit-list {
+  list-style: none;
+  padding: 0;
+}
+
+.habit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+.habit-item:hover {
+  transform: translateX(5px);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.delete-btn {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+.delete-btn:hover {
+  background: var(--danger-hover);
+}
+
+/* ================================
+   😃 SELECTOR DE EMOJIS
+   ================================ */
+
+.habit-emoji {
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+}
+
+.emoji-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.emoji-btn {
+  font-size: 1.4rem;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.2);
+}
+
+.emoji-btn.selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 20%, transparent);
+  transform: scale(1.1);
+}
+
+/* ================================
+   ✨ ANIMACIÓN
+   ================================ */
+
+.fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   📱 RESPONSIVE
+   ================================ */
+@media (max-width: 600px) {
+  .habits-container {
+    padding: 1.2rem;
+  }
+
+  .habit-form {
+    flex-direction: column;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+}

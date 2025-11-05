@@ -1,49 +1,52 @@
-import { useState } from 'react';
-import api from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../api.js";
+import "../styles/Auth.css";
 
-export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [message, setMessage] = useState('');
+export default function Login({ setToken }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/auth/login', form);
-      localStorage.setItem('token', res.data.token); // guardamos JWT
-      setMessage('Login exitoso!');
-      navigate('/'); // redirige a la home o dashboard
-    } catch (err) {
-      setMessage(err.response?.data?.message || 'Error en login');
+      const res = await api.post("/auth/login", { email, password });
+      localStorage.setItem("token", res.data.token);
+      setToken(res.data.token);
+      navigate("/habits");
+    } catch (error) {
+      alert(error.response?.data?.message || "Error al iniciar sesión");
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          placeholder="Email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-        />
-        <input
-          name="password"
-          placeholder="Contraseña"
-          type="password"
-          value={form.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Iniciar Sesión</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2>Iniciar sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Entrar</button>
+        </form>
+        <div className="auth-footer">
+          <p>
+            ¿No tenés cuenta? <Link to="/register">Registrate aquí</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

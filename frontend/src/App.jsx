@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import Login from '../src/Login.jsx';
-import Register from '../src/Register.jsx';
+import Login from '../src/pages/Login.jsx';
+import Register from './pages/Register.jsx';
 import Habits from '../src/Habits.jsx';
 
 function App() {

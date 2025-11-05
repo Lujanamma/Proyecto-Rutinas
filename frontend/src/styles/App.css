@@ -8,11 +8,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-  background-color: #f5f5f5;
-  color: #333;
-  min-height: 100vh;
-}
 
 /* Contenedor principal */
 .App {
@@ -140,4 +135,14 @@ form button:hover {
   .habit-card button {
     align-self: flex-end;
   }
+  body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 }
