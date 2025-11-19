@@ -21,6 +21,9 @@ const sendVerificationEmail = async (to, token) => {
       <a href="${verificationUrl}" target="_blank">Verificar cuenta</a>
     `,
   });
+
+  // Este console.log debe ir aquí, dentro de la función
+  console.log(`✅ Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
 };
 
 export default sendVerificationEmail;
