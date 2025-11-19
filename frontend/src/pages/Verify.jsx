@@ -8,18 +8,46 @@ const Verify = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    // Interceptores para capturar todos los requests/responses
+    const requestInterceptor = axios.interceptors.request.use(req => {
+      console.log('➡️ Request Axios:', req);
+      return req;
+    });
+
+    const responseInterceptor = axios.interceptors.response.use(
+      res => {
+        console.log('✅ Response Axios:', res);
+        return res;
+      },
+      err => {
+        console.error('❌ Error Axios:', err.response || err);
+        return Promise.reject(err);
+      }
+    );
+
     const verifyAccount = async () => {
+      console.log('🔹 Iniciando verificación con token:', token);
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify/${token}`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/auth/verify/${token}`
+        );
+        console.log('🔹 Respuesta recibida del backend:', response);
         setStatus(response.data.message || 'Cuenta verificada correctamente ✅');
         setError(false);
       } catch (err) {
+        console.error('🔹 Error en la verificación:', err.response || err);
         setStatus(err.response?.data?.message || 'Error verificando la cuenta.');
         setError(true);
       }
     };
 
     if (token) verifyAccount();
+
+    // Limpiar interceptores al desmontar
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
   }, [token]);
 
   return (
