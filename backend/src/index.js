@@ -11,10 +11,7 @@ const app = express();
 
 // CORS: permitir frontend de localhost y Vercel
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://proyecto-rutinas.vercel.app"
-  ],
+
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   allowedHeaders: ["Content-Type","Authorization"],
   credentials: true
