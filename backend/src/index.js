@@ -9,12 +9,14 @@ import habitRoutes from './routes/habitRoutes.js';
 dotenv.config();
 const app = express();
 
-// Middlewares CORS simples
+// CORS: permitir frontend de localhost y Vercel
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://proyecto-rutinas.vercel.app"
   ],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"],
   credentials: true
 }));
 
