@@ -19,8 +19,9 @@ export const registerUser = async (name, email, password) => {
     verificationToken,
   });
 
-  // COMENTAR ESTA LÍNEA TEMPORALMENTE PARA TESTEAR REGISTRO SIN MAIL
-  // await sendVerificationEmail(email, verificationToken);
+  // Depuración: mostrar en consola que se intenta enviar el mail
+  console.log("🚀 Intentando enviar email de verificación a:", email);
+  await sendVerificationEmail(email, verificationToken);
 
   return { message: 'Usuario registrado. Revisa tu correo para verificar tu cuenta.' };
 };
