@@ -9,14 +9,10 @@ import habitRoutes from './routes/habitRoutes.js';
 dotenv.config();
 const app = express();
 
-// CORS: permitir frontend de localhost y Vercel
-app.use(cors({
+// CORS libre para pruebas
+app.use(cors());
 
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"],
-  credentials: true
-}));
-
+// Parse JSON
 app.use(express.json());
 
 // Conectar a MongoDB
