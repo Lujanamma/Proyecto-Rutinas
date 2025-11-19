@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Login from '../src/pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Habits from '../src/Habits.jsx';
+import Verify from './pages/Verify.jsx'; // <- importa el nuevo componente
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
@@ -37,6 +38,9 @@ function App() {
           </ProtectedRoute>
         }
       />
+      {/* Ruta para verificar cuenta */}
+      <Route path="/verify/:token" element={<Verify />} />
+      
       {/* Ruta comodín para 404 */}
       <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
     </Routes>
