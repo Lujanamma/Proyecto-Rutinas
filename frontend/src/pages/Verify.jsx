@@ -10,21 +10,16 @@ const Verify = () => {
   useEffect(() => {
     const verifyAccount = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/auth/verify/${token}`
-        );
-        setStatus(response.data.message);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify/${token}`);
+        setStatus(response.data.message || 'Cuenta verificada correctamente ✅');
         setError(false);
       } catch (err) {
-        console.error(err);
         setStatus(err.response?.data?.message || 'Error verificando la cuenta.');
         setError(true);
       }
     };
 
-    if (token) {
-      verifyAccount();
-    }
+    if (token) verifyAccount();
   }, [token]);
 
   return (

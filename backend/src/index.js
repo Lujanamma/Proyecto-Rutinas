@@ -9,13 +9,21 @@ import habitRoutes from './routes/habitRoutes.js';
 dotenv.config();
 const app = express();
 
-// CORS libre para pruebas
-app.use(cors());
+// CORS configurado solo para tu frontend
+const allowedOrigins = ['https://proyecto-rutinas.vercel.app'];
 
-// Parse JSON
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS no permitido para este origen'));
+    }
+  },
+  credentials: false, // no usamos cookies
+}));
+
 app.use(express.json());
-
-// Conectar a MongoDB
 connectDB();
 
 // Rutas
@@ -23,10 +31,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/habits', habitRoutes);
 
-// Ruta de prueba
-app.get('/', (req, res) => {
-  res.send('Servidor Proyecto Rutinas funcionando correctamente 🚀');
-});
+app.get('/', (req, res) => res.send('Servidor Proyecto Rutinas funcionando 🚀'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
