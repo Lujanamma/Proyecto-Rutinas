@@ -4,6 +4,7 @@ import api from "../api.js";
 import "../styles/Auth.css";
 
 export default function Register({ setToken }) {
+  const [name, setName] = useState(""); // 👈 agregado
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function Register({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/auth/register", { email, password });
+      // 👇 ahora enviamos también el nombre
+      const res = await api.post("/auth/register", { name, email, password });
       alert("Registro exitoso. Verifica tu cuenta antes de iniciar sesión.");
       navigate("/login");
     } catch (error) {
@@ -24,6 +26,14 @@ export default function Register({ setToken }) {
       <div className="auth-box">
         <h2>Crear cuenta</h2>
         <form onSubmit={handleSubmit}>
+          {/* 👇 campo nuevo */}
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
           <input
             type="email"
             placeholder="Correo electrónico"
