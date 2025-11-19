@@ -11,19 +11,24 @@ const sendVerificationEmail = async (to, token) => {
 
   const verificationUrl = `${process.env.FRONTEND_URL}/verify/${token}`;
 
-  await transporter.sendMail({
-    from: `"Proyecto Rutinas" <${process.env.EMAIL_USER}>`,
-    to,
-    subject: 'Verifica tu cuenta ✔️',
-    html: `
-      <h2>Bienvenido/a a Proyecto Rutinas</h2>
-      <p>Haz clic en el siguiente enlace para verificar tu cuenta:</p>
-      <a href="${verificationUrl}" target="_blank">Verificar cuenta</a>
-    `,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Proyecto Rutinas" <${process.env.EMAIL_USER}>`,
+      to,
+      subject: 'Verifica tu cuenta ✔️',
+      html: `
+        <h2>Bienvenido/a a Proyecto Rutinas</h2>
+        <p>Haz clic en el siguiente enlace para verificar tu cuenta:</p>
+        <a href="${verificationUrl}" target="_blank">Verificar cuenta</a>
+      `,
+    });
+    console.log(`✅ Email de verificación enviado correctamente a: ${to}`);
+  } catch (error) {
+    console.error(`❌ Error al enviar correo a ${to}:`, error);
+  }
 
-  // Este console.log debe ir aquí, dentro de la función
-  console.log(`✅ Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
+  // Mantener este log para ver el intento de envío
+  console.log(`🚀 Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
 };
 
 export default sendVerificationEmail;
