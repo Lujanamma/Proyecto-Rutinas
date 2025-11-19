@@ -11,6 +11,7 @@ export const findUserByEmail = async (email) => {
 
 export const verifyUser = async (token) => {
   const user = await User.findOne({ verificationToken: token });
+  console.log("Usuario encontrado para token:", user); // <-- LOG agregado
   if (!user) return null;
 
   user.verified = true;
