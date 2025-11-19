@@ -10,7 +10,13 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",               // Frontend en dev
+    "https://proyecto-rutinas.vercel.app" // Frontend en producción
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Conectar a MongoDB
