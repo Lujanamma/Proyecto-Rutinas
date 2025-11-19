@@ -6,6 +6,7 @@ const Verify = () => {
   const { token } = useParams();
   const [status, setStatus] = useState('Verificando...');
   const [error, setError] = useState(false);
+  const [verified, setVerified] = useState(false); // evita reintentos
 
   useEffect(() => {
     // Interceptores para capturar todos los requests/responses
@@ -26,6 +27,7 @@ const Verify = () => {
     );
 
     const verifyAccount = async () => {
+      if (verified) return; // evita segunda llamada si ya se verificó
       console.log('🔹 Iniciando verificación con token:', token);
       try {
         const response = await axios.get(
@@ -38,6 +40,8 @@ const Verify = () => {
         console.error('🔹 Error en la verificación:', err.response || err);
         setStatus(err.response?.data?.message || 'Error verificando la cuenta.');
         setError(true);
+      } finally {
+        setVerified(true); // marca como verificado para no repetir
       }
     };
 
@@ -48,7 +52,7 @@ const Verify = () => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [token]);
+  }, [token, verified]);
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
