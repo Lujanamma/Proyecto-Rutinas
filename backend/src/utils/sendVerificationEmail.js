@@ -2,27 +2,21 @@ import nodemailer from 'nodemailer';
 
 const sendVerificationEmail = async (to, token) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: false,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
   });
-  transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ Error verificando conexión SMTP:", error);
-  } else {
-    console.log("✅ Servidor SMTP listo para enviar correos:", success);
-  }
-});
 
+  const frontendURL =
+    process.env.FRONTEND_URL_PROD ||
+    process.env.FRONTEND_URL_LOCAL ||
+    'http://localhost:5173';
 
-  const verificationUrl = `${process.env.FRONTEND_URL_PROD || process.env.FRONTEND_URL_LOCAL || 'http://localhost:5173'}/verify/${token}`;
-
-  console.log(`Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
+  const verificationUrl = `${frontendURL}/verify/${token}`;
 
   try {
     await transporter.sendMail({
@@ -38,7 +32,6 @@ const sendVerificationEmail = async (to, token) => {
     console.log(`✅ Email de verificación enviado correctamente a: ${to}`);
   } catch (error) {
     console.error(`❌ Error al enviar correo a ${to}:`, error);
-    throw error;
   }
 };
 
