@@ -40,6 +40,7 @@ export default function Register({ setToken }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="username"
           />
           <input
             type="password"
@@ -47,6 +48,7 @@ export default function Register({ setToken }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete="new-password"
           />
           <button type="submit">Registrarse</button>
         </form>

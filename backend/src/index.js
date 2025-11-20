@@ -13,9 +13,9 @@ const app = express();
 app.use(express.json());
 
 // CORS configurado solo para tu frontend
-const allowedOrigins = ['https://proyecto-rutinas.vercel.app'];
+const allowedOrigins = ['http://localhost:5173', 'https://proyecto-rutinas.vercel.app']; // Agregado localhost para desarrollo
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -23,7 +23,7 @@ app.use(cors({
       callback(new Error('CORS no permitido'));
     }
   },
-  credentials: false, // no usamos cookies
+  credentials: true,
 }));
 
 // Conectar a MongoDB

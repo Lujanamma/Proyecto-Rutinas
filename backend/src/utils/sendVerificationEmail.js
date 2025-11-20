@@ -7,9 +7,14 @@ const sendVerificationEmail = async (to, token) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
+    tls: {
+      rejectUnauthorized: false
+    }
   });
 
-  const verificationUrl = `${process.env.FRONTEND_URL}/verify/${token}`;
+  const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify/${token}`;
+
+  console.log(`Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
 
   try {
     await transporter.sendMail({
@@ -25,10 +30,8 @@ const sendVerificationEmail = async (to, token) => {
     console.log(`✅ Email de verificación enviado correctamente a: ${to}`);
   } catch (error) {
     console.error(`❌ Error al enviar correo a ${to}:`, error);
+    throw error;
   }
-
-  // Mantener este log para ver el intento de envío
-  console.log(`🚀 Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
 };
 
 export default sendVerificationEmail;

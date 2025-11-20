@@ -26,6 +26,10 @@ const habitSchema = new mongoose.Schema(
         type: Date,
       },
     ],
+    emoji: {
+      type: String,
+      default: '🌱',
+    },
   },
   {
     timestamps: true,

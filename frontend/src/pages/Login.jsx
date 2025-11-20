@@ -13,6 +13,7 @@ export default function Login({ setToken }) {
     try {
       const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("email", email);
       setToken(res.data.token);
       navigate("/habits");
     } catch (error) {
@@ -31,6 +32,7 @@ export default function Login({ setToken }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="username"
           />
           <input
             type="password"
@@ -38,6 +40,7 @@ export default function Login({ setToken }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete="current-password"
           />
           <button type="submit">Entrar</button>
         </form>
