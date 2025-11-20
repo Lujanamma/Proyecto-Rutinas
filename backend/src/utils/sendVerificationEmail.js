@@ -1,37 +1,43 @@
-import nodemailer from 'nodemailer';
+import fetch from "node-fetch";
 
 const sendVerificationEmail = async (to, token) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
   const frontendURL =
     process.env.FRONTEND_URL_PROD ||
     process.env.FRONTEND_URL_LOCAL ||
-    'http://localhost:5173';
+    "http://localhost:5173";
 
   const verificationUrl = `${frontendURL}/verify/${token}`;
 
+  console.log(`📨 Enviando correo de verificación a ${to} (vía Brevo API)`);
+
   try {
-    await transporter.sendMail({
-      from: `"Proyecto Rutinas" <${process.env.EMAIL_USER}>`,
-      to,
-      subject: 'Verifica tu cuenta ✔️',
-      html: `
-        <h2>Bienvenido/a a Proyecto Rutinas</h2>
-        <p>Haz clic en el siguiente enlace para verificar tu cuenta:</p>
-        <a href="${verificationUrl}" target="_blank">Verificar cuenta</a>
-      `,
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "api-key": process.env.BREVO_API_KEY,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: { name: "Proyecto Rutinas", email: "no-reply@proyecto-rutinas.com" },
+        to: [{ email: to }],
+        subject: "Verifica tu cuenta ✔️",
+        htmlContent: `
+          <h2>Bienvenido/a a Proyecto Rutinas</h2>
+          <p>Haz clic en el siguiente enlace para verificar tu cuenta:</p>
+          <a href="${verificationUrl}" target="_blank">Verificar cuenta</a>
+        `,
+      }),
     });
-    console.log(`✅ Email de verificación enviado correctamente a: ${to}`);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("❌ Error al enviar correo:", errorText);
+    } else {
+      console.log(`✅ Email enviado correctamente a: ${to}`);
+    }
   } catch (error) {
-    console.error(`❌ Error al enviar correo a ${to}:`, error);
+    console.error("❌ Error en la solicitud HTTP a Brevo:", error);
   }
 };
 
