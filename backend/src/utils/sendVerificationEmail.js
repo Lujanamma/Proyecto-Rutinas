@@ -11,6 +11,14 @@ const sendVerificationEmail = async (to, token) => {
       rejectUnauthorized: false,
     },
   });
+  transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ Error verificando conexión SMTP:", error);
+  } else {
+    console.log("✅ Servidor SMTP listo para enviar correos:", success);
+  }
+});
+
 
   const verificationUrl = `${process.env.FRONTEND_URL_PROD || process.env.FRONTEND_URL_LOCAL || 'http://localhost:5173'}/verify/${token}`;
 
