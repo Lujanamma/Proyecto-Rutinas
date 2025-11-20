@@ -17,11 +17,11 @@ const Verify = () => {
 
     const responseInterceptor = axios.interceptors.response.use(
       res => {
-        console.log('✅ Response Axios:', res);
+        console.log('Response Axios:', res);
         return res;
       },
       err => {
-        console.error('❌ Error Axios:', err.response || err);
+        console.error('Error Axios:', err.response || err);
         return Promise.reject(err);
       }
     );

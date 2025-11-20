@@ -33,7 +33,7 @@ console.log("Emoji elegido:", emoji);
  const handleAddHabit = async (e) => {
   e.preventDefault();
   try {
-    // 🔹 Guardamos el emoji actualmente seleccionado ANTES de resetearlo
+ 
     const habitData = { title, description, frequency, emoji };
     const res = await api.post('/habits', habitData, config);
 
@@ -41,7 +41,7 @@ setHabits([...habits, { ...res.data, emoji }]);
     setTitle('');
     setDescription('');
     setFrequency('daily');
-    setEmoji('🌱'); // reset solo después de guardar
+    setEmoji('🌱'); 
   } catch (error) {
     alert(error.response?.data?.message || error.message);
   }

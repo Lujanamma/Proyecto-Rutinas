@@ -16,7 +16,7 @@ export const authenticate = async (req, res, next) => {
     req.user = decoded; // guardamos info del usuario en req.user
     next();
   } catch (error) {
-    console.log('Error en authenticate:', error.message); // 🔹 agrega esto para ver errores de JWT
+    console.log('Error en authenticate:', error.message); 
     res.status(401).json({ message: 'Token inválido o expirado' });
   }
 };

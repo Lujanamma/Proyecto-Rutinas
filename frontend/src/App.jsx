@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Login from '../src/pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Habits from '../src/Habits.jsx';
-import Verify from './pages/Verify.jsx'; // <- importa el nuevo componente
+import Verify from './pages/Verify.jsx';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);

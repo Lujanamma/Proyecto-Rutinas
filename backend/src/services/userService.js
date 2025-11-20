@@ -21,11 +21,11 @@ export const registerUser = async (name, email, password) => {
 
   // Intentar enviar mail de verificación sin romper la app
   try {
-    console.log("🚀 Intentando enviar email de verificación a:", email);
+    console.log(" Intentando enviar email de verificación a:", email);
     await sendVerificationEmail(email, verificationToken);
-    console.log("✅ Email de verificación enviado correctamente");
+    console.log("Email de verificación enviado correctamente");
   } catch (error) {
-    console.error("❌ Error enviando email de verificación:", error.message);
+    console.error(" Error enviando email de verificación:", error.message);
   }
 
   return { message: 'Usuario registrado. Revisa tu correo para verificar tu cuenta.' };

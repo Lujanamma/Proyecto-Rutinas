@@ -1,6 +1,6 @@
 /* src/styles/ThemeToggle.css */
 
-/* 🌗 Botón del cambio de tema */
+
 .theme-toggle {
   background: transparent;
   border: 2px solid var(--border);
@@ -19,7 +19,7 @@
   opacity: 1;
 }
 
-/* 🌞🌙 Transición suave entre temas */
+
 html {
   transition: background-color 0.6s ease, color 0.6s ease;
   background: var(--bg);
