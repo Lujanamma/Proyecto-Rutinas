@@ -12,7 +12,12 @@ const sendVerificationEmail = async (to, token) => {
     }
   });
 
- const verificationUrl = `${process.env.FRONTEND_URL_PROD || process.env.FRONTEND_URL_LOCAL}/verify/${token}`;
+const frontendURL =
+  process.env.FRONTEND_URL_PROD ||
+  process.env.FRONTEND_URL_LOCAL ||
+  'http://localhost:5173';
+
+const verificationUrl = `${frontendURL}/verify/${token}`;
 
   console.log(`Intentando enviar correo de verificación a ${to} con link: ${verificationUrl}`);
 
