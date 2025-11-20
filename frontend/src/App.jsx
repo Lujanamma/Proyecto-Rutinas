@@ -9,7 +9,7 @@ import Verify from './pages/Verify.jsx';
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
 
-  // Vigila cambios en localStorage por logout/login en otras pestañas
+  
   useEffect(() => {
     const handleStorageChange = () => {
       setToken(localStorage.getItem('token'));
@@ -38,10 +38,10 @@ function App() {
           </ProtectedRoute>
         }
       />
-      {/* Ruta para verificar cuenta */}
+      {}
       <Route path="/verify/:token" element={<Verify />} />
       
-      {/* Ruta comodín para 404 */}
+      {}
       <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
     </Routes>
   );

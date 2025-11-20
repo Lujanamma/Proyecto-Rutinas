@@ -7,7 +7,7 @@ import {
   markHabitCompletedService,
 } from '../services/habitService.js';
 
-// Crear un hábito
+
 export const createHabitController = async (req, res) => {
   try {
     const habit = await createHabitService(req.user.id, req.body);
@@ -17,7 +17,6 @@ export const createHabitController = async (req, res) => {
   }
 };
 
-// Listar todos los hábitos del usuario
 export const getHabitsController = async (req, res) => {
   try {
     const habits = await getHabitsService(req.user.id);
@@ -27,7 +26,7 @@ export const getHabitsController = async (req, res) => {
   }
 };
 
-// Obtener un hábito por ID
+
 export const getHabitController = async (req, res) => {
   try {
     const habit = await getHabitService(req.params.id, req.user.id);
@@ -37,7 +36,7 @@ export const getHabitController = async (req, res) => {
   }
 };
 
-// Actualizar un hábito
+
 export const updateHabitController = async (req, res) => {
   try {
     const habit = await updateHabitService(req.params.id, req.user.id, req.body);
@@ -47,7 +46,7 @@ export const updateHabitController = async (req, res) => {
   }
 };
 
-// Eliminar un hábito
+
 export const deleteHabitController = async (req, res) => {
   try {
     await deleteHabitService(req.params.id, req.user.id);
@@ -57,7 +56,7 @@ export const deleteHabitController = async (req, res) => {
   }
 };
 
-// Marcar un hábito como completado
+
 export const completeHabitController = async (req, res) => {
   try {
     const habit = await markHabitCompletedService(req.params.id, req.user.id);

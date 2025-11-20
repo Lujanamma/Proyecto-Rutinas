@@ -37,7 +37,7 @@ const Verify = () => {
         setStatus(response.data.message || 'Cuenta verificada correctamente');
         setError(false);
 
-        // Redirigir al login después de 3 segundos siempre y cuando la verificación sea exitosa
+      
         setTimeout(() => {
           navigate('/login');
         }, 3000);

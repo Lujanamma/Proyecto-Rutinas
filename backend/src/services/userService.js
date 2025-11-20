@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import { createUser, findUserByEmail, verifyUser } from '../repositories/userRepository.js';
 import sendVerificationEmail from '../utils/sendVerificationEmail.js';
 
-// Registro de usuario
+
 export const registerUser = async (name, email, password) => {
   const existingUser = await findUserByEmail(email);
   if (existingUser) throw new Error('El correo ya está registrado');
@@ -19,7 +19,7 @@ export const registerUser = async (name, email, password) => {
     verificationToken,
   });
 
-  // Intentar enviar mail de verificación sin romper la app
+ 
   try {
     console.log(" Intentando enviar email de verificación a:", email);
     await sendVerificationEmail(email, verificationToken);
@@ -31,7 +31,7 @@ export const registerUser = async (name, email, password) => {
   return { message: 'Usuario registrado. Revisa tu correo para verificar tu cuenta.' };
 };
 
-// Login de usuario
+
 export const loginUser = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) throw new Error('Credenciales inválidas');
@@ -45,7 +45,7 @@ export const loginUser = async (email, password) => {
   return { token, user: { id: user._id, name: user.name, email: user.email } };
 };
 
-// Verificación de usuario
+
 export const verifyUserAccount = async (token) => {
   const user = await verifyUser(token);
   if (!user) throw new Error('Token inválido o expirado');

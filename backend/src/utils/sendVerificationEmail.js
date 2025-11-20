@@ -21,7 +21,7 @@ const sendVerificationEmail = async (to, token) => {
       body: JSON.stringify({
         sender: { name: "Proyecto Rutinas", email: "bonattig.sofia@gmail.com" },
      to: [{ email: to }],
-        subject: "Verifica tu cuenta ✔️",
+        subject: "Verifica tu cuenta ",
         htmlContent: `
           <h2>Bienvenido/a a Proyecto Rutinas</h2>
           <p>Haz clic en el siguiente enlace para verificar tu cuenta:</p>
@@ -32,12 +32,12 @@ const sendVerificationEmail = async (to, token) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("❌ Error al enviar correo:", errorText);
+      console.error(" Error al enviar correo:", errorText);
     } else {
-      console.log(`✅ Email enviado correctamente a: ${to}`);
+      console.log(` Email enviado correctamente a: ${to}`);
     }
   } catch (error) {
-    console.error("❌ Error en la solicitud HTTP a Brevo:", error);
+    console.error(" Error en la solicitud HTTP a Brevo:", error);
   }
 };
 

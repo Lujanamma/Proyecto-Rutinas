@@ -9,7 +9,7 @@ export default function ThemeToggle() {
   });
 
   useEffect(() => {
-    // Aplica el tema al HTML
+ 
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);

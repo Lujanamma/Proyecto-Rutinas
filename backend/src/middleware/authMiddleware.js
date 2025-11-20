@@ -13,7 +13,7 @@ export const authenticate = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded; // guardamos info del usuario en req.user
+    req.user = decoded; 
     next();
   } catch (error) {
     console.log('Error en authenticate:', error.message); 

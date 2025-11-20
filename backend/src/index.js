@@ -9,10 +9,10 @@ import habitRoutes from './routes/habitRoutes.js';
 dotenv.config();
 const app = express();
 
-// Parse JSON primero
+
 app.use(express.json());
 
-// CORS configurado solo para tu frontend
+
 const allowedOrigins = ['http://localhost:5173', 'https://proyecto-rutinas.vercel.app']; // Agregado localhost para desarrollo
 app.use(cors({
   origin: function (origin, callback) {
@@ -26,15 +26,15 @@ app.use(cors({
   credentials: true,
 }));
 
-// Conectar a MongoDB
+
 connectDB();
 
-// Rutas
+
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/habits', habitRoutes);
 
-// Ruta de prueba
+
 app.get('/', (req, res) => {
   console.log('✅ Ruta / accedida');
   res.send('Servidor Proyecto Rutinas funcionando 🚀');

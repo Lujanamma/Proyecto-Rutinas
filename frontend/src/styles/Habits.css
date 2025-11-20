@@ -11,7 +11,7 @@
   --shadow: rgba(0, 0, 0, 0.08);
 }
 
-/* Temas forzados manualmente */
+
 html[data-theme="dark"] {
   --bg: #1e1e1e;
   --text: #f1f1f1;
@@ -25,9 +25,9 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="light"] {
-  --bg: #f3f4f6; /* Un gris muy suave, da sensación de fondo claro */
+  --bg: #f3f4f6; 
   --text: #333;
-  --card: #ffffff; /* Recuadro blanco limpio */
+  --card: #ffffff; 
   --border: #d0d0d0;
   --primary: #1976d2;
   --primary-hover: #125ea8;
@@ -35,7 +35,7 @@ html[data-theme="light"] {
   --danger-hover: #e53935;
   --shadow: rgba(0, 0, 0, 0.08);
 }
-/* Detecta si el sistema está en modo oscuro */
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #1e1e1e;
