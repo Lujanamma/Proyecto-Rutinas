@@ -19,8 +19,8 @@ const sendVerificationEmail = async (to, token) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        sender: { name: "Proyecto Rutinas", email: "no-reply@proyecto-rutinas.com" },
-        to: [{ email: to }],
+        sender: { name: "Proyecto Rutinas", email: "bonattig.sofia@gmail.com" },
+     to: [{ email: to }],
         subject: "Verifica tu cuenta ✔️",
         htmlContent: `
           <h2>Bienvenido/a a Proyecto Rutinas</h2>
